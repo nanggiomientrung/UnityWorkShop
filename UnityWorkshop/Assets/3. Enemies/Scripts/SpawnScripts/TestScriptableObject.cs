@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/TestDB", fileName = "TestDB.asset")]
+[CreateAssetMenu(menuName = "ScriptableObject/TestDBA", fileName = "TestDB.asset")]
 public class TestScriptableObject : ScriptableObject
 {
     public List<EnemyInfo> listEnemy;

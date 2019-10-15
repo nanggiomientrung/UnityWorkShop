@@ -272,6 +272,8 @@ MonoBehaviour:
   musicSource: {fileID: 1636925255}
   lowPitchRange: 0.95
   highPitchRange: 1.05
+  coinSound: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!4 &154738240
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f65d4e8819ff64d8647c506e9b23c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardScript: {fileID: 917659306}
   ScoreText: {fileID: 724383946}
 --- !u!1001 &1043243965
 PrefabInstance:
@@ -1983,10 +1986,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ce8df933d506eef4aa28eb58dca1ea80, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

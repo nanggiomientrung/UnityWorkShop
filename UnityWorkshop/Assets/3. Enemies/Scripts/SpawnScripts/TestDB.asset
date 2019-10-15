@@ -12,4 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2e2ef9834d2f2489a7ac3ff5fc3b79, type: 3}
   m_Name: TestDB
   m_EditorClassIdentifier: 
-  listEnemy: []
+  listEnemy:
+  - EnemyID: 0
+    EnemyName: 
+    EnemyPrefab: {fileID: 0}
+    EmemyLife: 0
+    EnemyDmg: 0
+    EnemyIcon: {fileID: 21300002, guid: 7713a47b0fe923e459417817d67c912e, type: 3}
+  - EnemyID: 0
+    EnemyName: 
+    EnemyPrefab: {fileID: 0}
+    EmemyLife: 0
+    EnemyDmg: 0
+    EnemyIcon: {fileID: 21300006, guid: 7713a47b0fe923e459417817d67c912e, type: 3}
+  - EnemyID: 0
+    EnemyName: 
+    EnemyPrefab: {fileID: 0}
+    EmemyLife: 0
+    EnemyDmg: 0
+    EnemyIcon: {fileID: 0}
+  - EnemyID: 1
+    EnemyName: Enemy_1
+    EnemyPrefab: {fileID: 0}
+    EmemyLife: 100
+    EnemyDmg: 10
+    EnemyIcon: {fileID: 21300018, guid: 7713a47b0fe923e459417817d67c912e, type: 3}
+  - EnemyID: 2
+    EnemyName: Enemy_2
+    EnemyPrefab: {fileID: 0}
+    EmemyLife: 90
+    EnemyDmg: 11
+    EnemyIcon: {fileID: 21300020, guid: 7713a47b0fe923e459417817d67c912e, type: 3}

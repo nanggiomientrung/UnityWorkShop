@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    private BoardManager boardScript;
+    [SerializeField]private BoardManager boardScript;
     [SerializeField] private Text ScoreText;
-    private int score;
+    public int score { get; private set; }
     private float time;
 
     void Awake()
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //lấy reference của board manager (ngoài ra còn cách kéo thả thông qua inspector
-        boardScript = GetComponent<BoardManager>();
+        //boardScript = GetComponent<BoardManager>();
 
         // gọi hàm InitGame
         InitGame();

@@ -34,4 +34,5 @@ public class EnemyInfo
     public BaseEnemy EnemyPrefab;
     public int EmemyLife;
     public int EnemyDmg;
+    public Sprite EnemyIcon;
 }
