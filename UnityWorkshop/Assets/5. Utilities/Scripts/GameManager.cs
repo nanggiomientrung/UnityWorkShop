@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         // gọi sang Board Manager
-        boardScript.SetupScene();
+        boardScript.SetupScene(1);
         score = 0;
         time = 0;
         ScoreText.text = score.ToString();
@@ -39,15 +39,6 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        if(time>=1f)
-        {
-            time += Time.deltaTime - 1;
-            score += 50;
-            ScoreText.text = score.ToString();
-        }
-        else
-        {
-            time += Time.deltaTime;
-        }
+        
     }
 }
