@@ -53,6 +53,11 @@ public class BoardManager : MonoBehaviour
         var jsonTextFile = Resources.Load<TextAsset>("LayoutData/Level_" + Level).ToString();
         layoutData = JsonConvert.DeserializeObject<LayoutData>(jsonTextFile);
     }
+
+    private void ABC()
+    {
+
+    }
 }
 
 public class LayoutData
