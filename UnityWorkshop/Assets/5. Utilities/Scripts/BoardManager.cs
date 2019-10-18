@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.IO;
 
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] blockPrefabs;
     private Transform boardHolder; // gameobject để làm cha cho các object được sinh
-    private List<Vector3> gridPositions = new List<Vector3>(); // danh sách các vị trí để init cho ground
+    private List<LayoutElementPos> gridPositions = new List<LayoutElementPos>(); // danh sách các vị trí để init cho ground
+    private LayoutData layoutData = new LayoutData();
 
-    public void SetupScene()
+    public void SetupScene(int Level)
     {
+        ReadJsonLayoutData(Level);
         InitialsePositionList();
         BoardSetup();
     }
@@ -17,12 +21,16 @@ public class BoardManager : MonoBehaviour
     void InitialsePositionList()
     {
         // khởi tạo gridPositions 
-        // có thể tạo từ một file có sẵn
-        for (int i = 0; i < 16; i++)
+        foreach(KeyValuePair<int, List<LayoutElementPosY>> keyValuePair in layoutData.LayoutGroups)
         {
-            for (int j = 0; j < 3; j++)
+            for (int i = 0; i < keyValuePair.Value.Count; i++)
             {
-                gridPositions.Add(new Vector3(-10 + i * 1.3f, -2 - j * 1.3f));
+                gridPositions.Add(new LayoutElementPos
+                {
+                    PosX = -9.1f + keyValuePair.Key * 1.3f,
+                    PosY = -2 - keyValuePair.Value[i].PosY * 1.3f,
+                    ElementNo = keyValuePair.Value[i].ElementNo
+                });
             }
         }
     }
@@ -35,13 +43,38 @@ public class BoardManager : MonoBehaviour
         // khởi tạo ground
         for (int i = 0; i < gridPositions.Count; i++)
         {
-            GameObject instance = Instantiate(blockPrefabs[Random.Range(0, blockPrefabs.Length)], gridPositions[i], Quaternion.identity) as GameObject;
+            GameObject instance = Instantiate(blockPrefabs[gridPositions[i].ElementNo], new Vector3(gridPositions[i].PosX, gridPositions[i].PosY,-1), Quaternion.identity) as GameObject;
             instance.transform.SetParent(boardHolder);
         }
     }
 
-    //private void Start()
-    //{
-    //    SetupScene();
-    //}
+    private void ReadJsonLayoutData(int Level)
+    {
+        var jsonTextFile = Resources.Load<TextAsset>("LayoutData/Level_" + Level).ToString();
+        layoutData = JsonConvert.DeserializeObject<LayoutData>(jsonTextFile);
+    }
+}
+
+public class LayoutData
+{
+    public Dictionary<int, List<LayoutElementPosY>> LayoutGroups;
+}
+
+//public class LayoutGroup
+//{
+//    public int PosX; // vị trí theo X có các element được init
+//    public List<LayoutElement> LayoutElements;
+//}
+
+public class LayoutElementPosY
+{
+    public int PosY; // vị trí theo Y được init (theo ô bàn cờ)
+    public int ElementNo; // dùng để xác định được element nào sẽ được init
+}
+
+public class LayoutElementPos
+{
+    public float PosX; // vị trí theo X được init
+    public float PosY; // vị trí theo Y được init
+    public int ElementNo; // dùng để xác định được element nào sẽ được init
 }
