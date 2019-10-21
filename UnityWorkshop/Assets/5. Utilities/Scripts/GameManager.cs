@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     [SerializeField]private BoardManager boardScript;
-    [SerializeField] private Text ScoreText;
     public int score { get; private set; }
     private float time;
 
@@ -30,15 +29,19 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         // gọi sang Board Manager
-        boardScript.SetupScene(1);
+        boardScript.SetupScene(3);
         score = 0;
         time = 0;
-        ScoreText.text = score.ToString();
     }
 
     
     private void Update()
     {
         
+    }
+
+    public void PlayerDeath()
+    {
+        Debug.LogError("Player DEATHHHHHHHHHH");
     }
 }

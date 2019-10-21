@@ -53,11 +53,6 @@ public class BoardManager : MonoBehaviour
         var jsonTextFile = Resources.Load<TextAsset>("LayoutData/Level_" + Level).ToString();
         layoutData = JsonConvert.DeserializeObject<LayoutData>(jsonTextFile);
     }
-
-    private void ABC()
-    {
-
-    }
 }
 
 public class LayoutData
@@ -74,7 +69,7 @@ public class LayoutData
 public class LayoutElementPosY
 {
     public int PosY; // vị trí theo Y được init (theo ô bàn cờ)
-    public int ElementNo; // dùng để xác định được element nào sẽ được init
+    public int ElementNo; // dùng để xác định được element nào sẽ được init ~ BlockID
 }
 
 public class LayoutElementPos
