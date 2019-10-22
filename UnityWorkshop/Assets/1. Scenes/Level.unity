@@ -449,11 +449,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1646637244309695075, guid: 0b4d6222256ff58489c0d9085d0552b6,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b4d6222256ff58489c0d9085d0552b6, type: 3}
 --- !u!1 &432222086
@@ -533,7 +528,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432222086}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 2.5, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -546,7 +541,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432222086}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21cdc5f250a2554dbe6825bdb29e594, type: 3}
   m_Name: 
@@ -554,6 +549,7 @@ MonoBehaviour:
   movingBackgrounds:
   - {fileID: 24097213}
   - {fileID: 2001312853}
+  freeMoveStep: 2
 --- !u!1 &917659304
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,6 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 917659306}
+  cam: {fileID: 432222090}
 --- !u!1 &1636925253
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +951,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001312850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23, y: 0, z: 1}
+  m_LocalPosition: {x: 23, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

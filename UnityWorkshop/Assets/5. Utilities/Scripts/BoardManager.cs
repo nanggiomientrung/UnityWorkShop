@@ -20,6 +20,8 @@ public class BoardManager : MonoBehaviour
 
     void InitialsePositionList()
     {
+        // độ dài map chính là số cột block của layout.
+        GameManager.instance.MapLength = layoutData.LayoutGroups.Count;
         // khởi tạo gridPositions 
         foreach(KeyValuePair<int, List<LayoutElementPosY>> keyValuePair in layoutData.LayoutGroups)
         {
@@ -59,12 +61,6 @@ public class LayoutData
 {
     public Dictionary<int, List<LayoutElementPosY>> LayoutGroups;
 }
-
-//public class LayoutGroup
-//{
-//    public int PosX; // vị trí theo X có các element được init
-//    public List<LayoutElement> LayoutElements;
-//}
 
 public class LayoutElementPosY
 {

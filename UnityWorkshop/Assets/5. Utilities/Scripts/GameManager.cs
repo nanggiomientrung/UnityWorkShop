@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private BoardManager boardScript;
     public int score { get; private set; }
     private float time;
+    [SerializeField] private MovingCamera cam;
 
     void Awake()
     {
@@ -18,9 +20,6 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
-
-        //lấy reference của board manager (ngoài ra còn cách kéo thả thông qua inspector
-        //boardScript = GetComponent<BoardManager>();
 
         // gọi hàm InitGame
         InitGame();
@@ -34,6 +33,20 @@ public class GameManager : MonoBehaviour
         time = 0;
     }
 
+    // độ dài map
+    private int mapLength;
+    public int MapLength
+    {
+        get
+        {
+            return mapLength;
+        }
+        set
+        {
+            mapLength = value;
+            cam.SetMapLength(mapLength);
+        }
+    }
     
     private void Update()
     {
