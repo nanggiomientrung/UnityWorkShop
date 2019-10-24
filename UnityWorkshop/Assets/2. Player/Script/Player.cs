@@ -10,8 +10,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private Vector3 moveSpeed;
     private bool isPlayerMoving = false;
     private bool isMovingRightDirection = true;
-
-
+    
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -62,6 +61,7 @@ public class Player : MonoBehaviour, IActor
     private Vector3 jumpForce = new Vector3(0, 500, 0);
     private void Jump()
     {
+        if (isPlayerOnGround == false) return;
         // cần cơ chế ko cho nhảy khi đang ở trên không
         animator.SetTrigger("Jump");
         rigidBody.AddForce(jumpForce);
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour, IActor
     private void Move(bool isRight)
     {
         // xoay player tùy theo di chuyển trái hay phải
-        transform.localScale = isRight ? Vector3.one : leftScale;
+        transform.localScale = isRight ? Vector3.one : leftScale;// if(isRight) transform.localScale = vector3.one else transform.localscale = leftscale
         // set anim cho player
         animator.SetBool("Move", true);
         isMovingRightDirection = isRight;
@@ -94,15 +94,40 @@ public class Player : MonoBehaviour, IActor
         }
     }
 
-    public void TakeDamage(float Damage)
+    public void TakeDamage(float xDamage)
     {
         animator.SetTrigger("Hurt");
-        playerHealth -= Damage;
+        playerHealth -= xDamage;
         if (playerHealth <= 0) OnDeath();
     }
 
     public void OnDeath()
     {
         GameManager.instance.PlayerDeath();
+    }
+
+    private bool isPlayerOnGround = true;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Ground"))
+        {
+            Debug.Log("Tiep dat");
+            isPlayerOnGround = true;
+        }
+
+
+        if(collision.CompareTag("Player"))
+        {
+            collision.GetComponent<IActor>().TakeDamage(100);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ground"))
+        {
+            Debug.Log("Nhay");
+            isPlayerOnGround = false;
+        }
     }
 }
