@@ -10,7 +10,12 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private Vector3 moveSpeed;
     private bool isPlayerMoving = false;
     private bool isMovingRightDirection = true;
+
     
+
+    // thông số nhân vật
+    [SerializeField] private float playerDamage;
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -70,6 +75,8 @@ public class Player : MonoBehaviour, IActor
     private void Attack()
     {
         animator.SetTrigger("Attack");
+        //DirectShoot();
+        SpiralShoot();
     }
 
     private Vector3 leftScale = new Vector3(-1f, 1f, 1f); // để lật player lại cho quay sang phía trái
@@ -109,7 +116,7 @@ public class Player : MonoBehaviour, IActor
     private bool isPlayerOnGround = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ground"))
+        if(collision.CompareTag("CheckGround"))
         {
             Debug.Log("Tiep dat");
             isPlayerOnGround = true;
@@ -124,10 +131,47 @@ public class Player : MonoBehaviour, IActor
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ground"))
+        if (collision.CompareTag("CheckGround"))
         {
             Debug.Log("Nhay");
             isPlayerOnGround = false;
         }
     }
+
+    #region BULLET SHOOTING
+    // đạn
+    [SerializeField] private BaseBullet bulletPrefab;
+    [SerializeField] private Vector2 leftShootDirection;
+    [SerializeField] private Vector2 rightShootDirection;
+    [SerializeField] private float bulletInitialVelocity;
+    [SerializeField] private Transform shootTransform;
+    private BaseBullet currentBullet;
+    private void DirectShoot()
+    {
+        if (isMovingRightDirection)
+        {
+            currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
+            currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(rightShootDirection) * bulletInitialVelocity;
+            currentBullet.transform.localScale = Vector3.one;
+        }
+        else
+        {
+            currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
+            currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(leftShootDirection) * bulletInitialVelocity;
+            currentBullet.transform.localScale = leftScale;
+        }
+        currentBullet.SetBulletDamage(playerDamage);
+    }
+
+    [SerializeField] private SpiralShootController bulletControllerPrefab;
+    private SpiralShootController currentControllerPrefab;
+    private int NumberBulletPerWave = 5;
+    private float SpiralVelocity = 5;
+    private float SpiralRotateSpeed = 30;
+    private void SpiralShoot()
+    {
+        currentControllerPrefab = SimplePool.Spawn(bulletControllerPrefab, shootTransform.position, Quaternion.identity);
+        currentControllerPrefab.ShootAsSpiral(NumberBulletPerWave, SpiralVelocity, SpiralRotateSpeed, playerDamage);
+    }
+    #endregion
 }
