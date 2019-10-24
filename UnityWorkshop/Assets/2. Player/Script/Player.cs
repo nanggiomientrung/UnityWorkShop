@@ -76,7 +76,12 @@ public class Player : MonoBehaviour, IActor
     {
         animator.SetTrigger("Attack");
         //DirectShoot();
+        //ParabolShoot();
         SpiralShoot();
+        //Shoot(isMovingRightDirection ? rightShootDirection : leftShootDirection,
+        //    isMovingRightDirection ? Vector3.zero : new Vector3(0, 0, 180), bulletInitialVelocity, bulletPrefab);
+        //Shoot(isMovingRightDirection ? rightShootDirection_Parabol : leftShootDirection_Parabol,
+        //    isMovingRightDirection ? Vector3.zero : new Vector3(0, 0, 180), bulletInitialVelocity, bulletPrefab_Gravity);
     }
 
     private Vector3 leftScale = new Vector3(-1f, 1f, 1f); // để lật player lại cho quay sang phía trái
@@ -148,18 +153,49 @@ public class Player : MonoBehaviour, IActor
     private BaseBullet currentBullet;
     private void DirectShoot()
     {
+        currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
+        currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(leftShootDirection) * bulletInitialVelocity;
         if (isMovingRightDirection)
         {
-            currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
-            currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(rightShootDirection) * bulletInitialVelocity;
+            //currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
+            //currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(rightShootDirection) * bulletInitialVelocity;
             currentBullet.transform.localScale = Vector3.one;
         }
         else
         {
-            currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
-            currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(leftShootDirection) * bulletInitialVelocity;
+            //currentBullet = SimplePool.Spawn(bulletPrefab, shootTransform.position, Quaternion.identity);
+            //currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(leftShootDirection) * bulletInitialVelocity;
             currentBullet.transform.localScale = leftScale;
         }
+        currentBullet.SetBulletDamage(playerDamage);
+    }
+
+    [SerializeField] private BaseBullet bulletPrefab_Gravity;
+    [SerializeField] private Vector2 leftShootDirection_Parabol;
+    [SerializeField] private Vector2 rightShootDirection_Parabol;
+    private void ParabolShoot()
+    {
+        if (isMovingRightDirection)
+        {
+            currentBullet = SimplePool.Spawn(bulletPrefab_Gravity, shootTransform.position, Quaternion.identity);
+            currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(rightShootDirection_Parabol) * bulletInitialVelocity;
+            currentBullet.transform.localScale = Vector3.one;
+            //currentBullet.transform.localEulerAngles
+        }
+        else
+        {
+            currentBullet = SimplePool.Spawn(bulletPrefab_Gravity, shootTransform.position, Quaternion.identity);
+            currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(leftShootDirection_Parabol) * bulletInitialVelocity;
+            currentBullet.transform.localScale = leftScale;
+        }
+        currentBullet.SetBulletDamage(playerDamage);
+    }
+
+    private void Shoot(Vector3 ShootDirection, Vector3 RotateAngle, float Velocity, BaseBullet BulletPrefab)
+    {
+        currentBullet = SimplePool.Spawn(BulletPrefab, shootTransform.position, Quaternion.identity);
+        currentBullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(ShootDirection) * Velocity;
+        currentBullet.transform.localEulerAngles = RotateAngle;
         currentBullet.SetBulletDamage(playerDamage);
     }
 

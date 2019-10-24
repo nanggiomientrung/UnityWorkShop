@@ -156,6 +156,10 @@ MonoBehaviour:
   rightShootDirection: {x: 1, y: 0}
   bulletInitialVelocity: 10
   shootTransform: {fileID: 1730533040}
+  bulletPrefab_Gravity: {fileID: 9221303572644697932, guid: 5bbf3fe524ef7c544be49aa5b51f2b85,
+    type: 3}
+  leftShootDirection_Parabol: {x: -1, y: 1}
+  rightShootDirection_Parabol: {x: 1, y: 1}
   bulletControllerPrefab: {fileID: 8991236083348513140, guid: 7111f7a750cbf23458e08fd6c81fb1a3,
     type: 3}
 --- !u!50 &1646637244309695075

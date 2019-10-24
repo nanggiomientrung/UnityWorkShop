@@ -449,6 +449,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1441127226, guid: 0b4d6222256ff58489c0d9085d0552b6, type: 3}
+      propertyPath: leftShootDirection_Parabol.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441127226, guid: 0b4d6222256ff58489c0d9085d0552b6, type: 3}
+      propertyPath: rightShootDirection_Parabol.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b4d6222256ff58489c0d9085d0552b6, type: 3}
 --- !u!1 &432222086

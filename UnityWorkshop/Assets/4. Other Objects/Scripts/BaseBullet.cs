@@ -49,4 +49,20 @@ public class BaseBullet : MonoBehaviour
             SimplePool.Despawn(gameObject);
         }
     }
+
+    private Vector3 lastPosition;
+    private void OnEnable()
+    {
+        lastPosition = transform.position;
+    }
+    private void Update()
+    {
+        if (bulletController != null) return;
+        if(lastPosition != transform.position)
+        {
+            transform.localEulerAngles = new Vector3(0, 0, Vector3.SignedAngle(Vector3.right, transform.position - lastPosition, Vector3.forward));           
+
+        }
+        lastPosition = transform.position;
+    }
 }
