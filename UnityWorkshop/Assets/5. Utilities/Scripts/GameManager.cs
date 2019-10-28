@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     [SerializeField]private BoardManager boardScript;
     public int score { get; private set; }
+    [SerializeField] private Text scoreText;
     private float time;
     [SerializeField] private MovingCamera cam;
 
@@ -31,6 +32,9 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene(3);
         score = 0;
         time = 0;
+
+        // khởi tạo score
+        scoreText.text = "Score: 0";
     }
 
     // độ dài map
@@ -56,5 +60,11 @@ public class GameManager : MonoBehaviour
     public void PlayerDeath()
     {
         Debug.LogError("Player DEATHHHHHHHHHH");
+    }
+
+    public void IncreaseScore(int addedScore)
+    {
+        score += addedScore;
+        scoreText.text = "Score: " + addedScore;
     }
 }

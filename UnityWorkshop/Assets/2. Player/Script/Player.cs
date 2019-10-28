@@ -10,11 +10,16 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private Vector3 moveSpeed;
     private bool isPlayerMoving = false;
     private bool isMovingRightDirection = true;
-
+    private float currentHealth;
     
 
     // thông số nhân vật
     [SerializeField] private float playerDamage;
+
+    private void OnEnable()
+    {
+        currentHealth = playerHealth;
+    }
 
     private void Update()
     {
@@ -76,8 +81,8 @@ public class Player : MonoBehaviour, IActor
     {
         animator.SetTrigger("Attack");
         //DirectShoot();
-        //ParabolShoot();
-        SpiralShoot();
+        ParabolShoot();
+        //SpiralShoot();
         //Shoot(isMovingRightDirection ? rightShootDirection : leftShootDirection,
         //    isMovingRightDirection ? Vector3.zero : new Vector3(0, 0, 180), bulletInitialVelocity, bulletPrefab);
         //Shoot(isMovingRightDirection ? rightShootDirection_Parabol : leftShootDirection_Parabol,
@@ -109,7 +114,7 @@ public class Player : MonoBehaviour, IActor
     public void TakeDamage(float xDamage)
     {
         animator.SetTrigger("Hurt");
-        playerHealth -= xDamage;
+        currentHealth -= xDamage;
         if (playerHealth <= 0) OnDeath();
     }
 

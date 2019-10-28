@@ -58,10 +58,9 @@ public class BaseBullet : MonoBehaviour
     private void Update()
     {
         if (bulletController != null) return;
-        if(lastPosition != transform.position)
+        if (lastPosition != transform.position)
         {
-            transform.localEulerAngles = new Vector3(0, 0, Vector3.SignedAngle(Vector3.right, transform.position - lastPosition, Vector3.forward));           
-
+            transform.localEulerAngles = new Vector3(0, 0, Vector3.SignedAngle(transform.localScale.x == 1 ? Vector3.right : Vector3.left, transform.position - lastPosition, Vector3.forward));
         }
         lastPosition = transform.position;
     }
