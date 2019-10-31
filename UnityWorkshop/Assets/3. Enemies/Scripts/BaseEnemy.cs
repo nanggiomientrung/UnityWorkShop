@@ -7,7 +7,6 @@ public class BaseEnemy : MonoBehaviour, IActor
     [SerializeField] private float enemyHealth; // máu của enemy
     [SerializeField] private Animator animator;
     [SerializeField] private Rigidbody2D rigidBody;
-    [SerializeField] private Vector3 moveSpeed; // vận tốc di chuyển của enemy
     [SerializeField] private int killedScore; // điểm khi giết dc enemy này
     private float currentHealth;
     [SerializeField]protected float enemyDamage;
@@ -15,8 +14,8 @@ public class BaseEnemy : MonoBehaviour, IActor
     // biến cho đổi màu khi bị đánh
     [SerializeField] private bool isFrameByFrame = true; // animation của enemy là frame by frame hay Spine (Skeleton)
     [SerializeField] private SpriteRenderer spriteRenderer;
-    MaterialPropertyBlock materialBlock;
-    [SerializeField]private MeshRenderer meshRenderer;
+    protected MaterialPropertyBlock materialBlock;
+    [SerializeField]protected MeshRenderer meshRenderer;
     private Color hitColor = Color.white;
     private Color normalColor = Color.black;
     [SerializeField] private float hitDuration;
@@ -25,7 +24,7 @@ public class BaseEnemy : MonoBehaviour, IActor
     // trạng thái của enemy
     protected EnemyAction currentAction;
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         materialBlock = new MaterialPropertyBlock();
     }
@@ -64,7 +63,7 @@ public class BaseEnemy : MonoBehaviour, IActor
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         // đổi màu khi bị đánh
         if (currentAction == EnemyAction.Hit)
@@ -146,5 +145,7 @@ public enum EnemyAction
     Hit,
     Dead,
     SpecialAction_1,
-    SpecialAction_2
+    SpecialAction_2,
+    Fall,
+    StandUp
 }
