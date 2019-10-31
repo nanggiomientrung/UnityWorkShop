@@ -65,6 +65,6 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int addedScore)
     {
         score += addedScore;
-        scoreText.text = "Score: " + addedScore;
+        scoreText.text = "Score: " + score;
     }
 }
